@@ -142,6 +142,10 @@ def slack_filedata(f):
     }
 
 
+def ts_fun(x):
+    if "ts" in x:
+        return x["ts"]
+
 def slack_channel_messages(d, channel_name, users, emoji_map, pins):
     def mention_repl(m):
         type_ = m.group(1)
@@ -168,7 +172,9 @@ def slack_channel_messages(d, channel_name, users, emoji_map, pins):
     for file in sorted(glob.glob(os.path.join(channel_dir, "*.json"))):
         with open(file, "rb") as fp:
             data = json.load(fp)
-        for d in sorted(data, key=lambda x: x["ts"]):
+        for d in sorted(data, key=ts_fun):
+            if not "text" in d:
+                continue
             text = d["text"]
             text = MENTION_RE.sub(mention_repl, text)
             text = LINK_RE.sub(lambda x: x.group(1), text)

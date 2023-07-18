@@ -32,8 +32,8 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
     ],
     install_requires = [
-        "discord.py>=2.0.0,<3.0.0",
-        "urllib3>=1.26.12,<2.0.0",
+        "discord.py==2.3.1",
+        "urllib3==1.26.16",
     ],
     packages=["slack_to_discord"],
     entry_points={
